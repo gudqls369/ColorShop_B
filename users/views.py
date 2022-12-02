@@ -16,7 +16,6 @@ class UserView(APIView):
         else:
             return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
     
-
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
@@ -28,7 +27,7 @@ class ProfileView(APIView):
 
     def put(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
-        if request.user == user.user:
+        if request.user == user.username:
             serializer = ProfileSerializer(user, data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -40,7 +39,7 @@ class ProfileView(APIView):
     
     def delete(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
-        if request.user == user.user:
+        if request.user == user.username:
             user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:

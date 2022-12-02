@@ -69,7 +69,7 @@ class PostDetailView(APIView):
 class CommentView(APIView):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
-        comments = post.comment_set.all() 
+        comments = post.comments.all() 
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -109,7 +109,7 @@ class LikeView(APIView):
         post = get_object_or_404(Post, id=post_id) # 게시글 받아오기
         if request.user in post.likes.all():
             post.likes.remove(request.user) 
-            return Response("좋아요 했습니다.", status=status.HTTP_200_OK)
+            return Response("좋아요를 최소했습니다.", status=status.HTTP_204_NO_CONTENT)
         else:
             post.likes.add(request.user)
-            return Response("좋아요 취소", status=status.HTTP_200_OK)
+            return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
