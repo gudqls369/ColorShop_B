@@ -6,8 +6,11 @@ class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
     def get_user(self, obj):
-        return obj.user.email
+        return obj.user.username
+<<<<<<< HEAD
+=======
 
+>>>>>>> eadcd232bc60fc4c2554d36f9e5d06b727fa1bd7
 
     class Meta:
         model = Comment
@@ -23,11 +26,11 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
-    comments = CommentSerializer(many=True)
     likes = serializers.StringRelatedField(many=True)
+    comments = CommentSerializer(many=True)
 
     def get_user(self, obj):
-        return obj.user.email # 유저 이메일이 돌아가게 되어 있다.
+        return obj.user.username # 유저 이메일이 돌아가게 되어 있다.
 
     class Meta:
         model = Post
@@ -42,18 +45,42 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
 class PostListSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
+    likes = serializers.StringRelatedField(many=True)
+    comments = CommentSerializer(many=True)
     likes_count = serializers.SerializerMethodField()
     comments_count = serializers.SerializerMethodField()
 
     def get_user(self, obj):  # obj: 해당 post
-        return obj.user.email
+        return obj.user.username
+
+    def get_likes(self, obj):
+        return obj.likes.user
 
     def get_likes_count(self, obj):
         return obj.likes.count()
+
+    def get_comments(self, obj):
+        return obj.comments.user
 
     def get_comments_count(self, obj):
         return obj.comments.count() # 변경 주의
 
     class Meta:
         model = Post
-        fields = ("pk", "title", "image", "updated_at", "user", "likes_count", "comments_count")  # 추가
+        fields = ("id", "title", "image", "updated_at", "user", "likes_count", "comments_count")  # 추가
+
+
+class PostLikeSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    likes = serializers.StringRelatedField(many=True)
+    likes_count = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        return obj.user.username
+
+    def get_like_count(self, obj):
+        return obj.likes.count()
+
+    class Meta:
+        model = Post
+        fields = ("id", "user", "likes_count", 'likes')
