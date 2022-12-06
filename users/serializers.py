@@ -32,4 +32,4 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('profile_img', 'username', 'nickname', 'bio')
+        fields = ('id', 'profile_img', 'username', 'nickname', 'bio')
