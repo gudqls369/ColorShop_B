@@ -7,10 +7,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_user(self, obj):
         return obj.user.username
-<<<<<<< HEAD
-=======
-
->>>>>>> eadcd232bc60fc4c2554d36f9e5d06b727fa1bd7
 
     class Meta:
         model = Comment

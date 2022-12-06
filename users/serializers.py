@@ -3,7 +3,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from users.models import User
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -33,4 +32,5 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'profile_img', 'username', 'nickname', 'bio')
+

@@ -4,12 +4,7 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from django.db.models.query_utils import Q
 from posts.models import Post, Comment
-<<<<<<< HEAD
 from posts.serializers import PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, CommentCreateSerializer, PostLikeSerializer
-=======
-from posts.serializers import PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, CommentCreateSerializer
->>>>>>> eadcd232bc60fc4c2554d36f9e5d06b727fa1bd7
-
 
 class PostView(APIView):
     def get(self, request):
@@ -73,11 +68,8 @@ class PostDetailView(APIView):
 class CommentView(APIView):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
-<<<<<<< HEAD
-        comments = post.comment_set.all() 
-=======
         comments = post.comments.all() 
->>>>>>> eadcd232bc60fc4c2554d36f9e5d06b727fa1bd7
+
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -88,7 +80,6 @@ class CommentView(APIView):
             return Response(serializer.data, status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class CommentDetailView(APIView):
     def put(self, request, post_id, comment_id):
@@ -119,10 +110,10 @@ class LikeView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, post_id):
-        post = get_object_or_404(Post, id=post_id)
+        post = get_object_or_404(Post, id=post_id) # 게시글 받아오기
         if request.user in post.likes.all():
-            post.likes.remove(request.user)
-            return Response("unlike", status=status.HTTP_200_OK)
+            post.likes.remove(request.user) 
+            return Response("좋아요를 최소했습니다.", status=status.HTTP_204_NO_CONTENT)
         else:
             post.likes.add(request.user)
-            return Response("like", status=status.HTTP_200_OK)
+            return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
