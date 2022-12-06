@@ -28,8 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate(self, validated_data) :
         username = validated_data.get("username")
-        username_reg = r'^[a-zA-Zㄱ-힣0-9-_.]{2,12}$'
-        password_reg = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$"
+        username_reg =r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,20}$"
+        password_reg = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
         password = validated_data.get("password")
         password_check = validated_data.get("password_check")
        
@@ -38,11 +38,11 @@ class UserSerializer(serializers.ModelSerializer):
 
         
         if not re.search(username_reg, str(username)) :
-            raise serializers.ValidationError(detail={"username":"한글,영문,특수문자를 1개 이상 포함한 2~12 글자로 만들어주세요."})
+            raise serializers.ValidationError(detail={"username":"최소 한 개의 영문자와 숫자를 포함해 20글자 이하의 유저이름을 만들어주세요."})
 
     
         if not re.search(password_reg, str(password)) :
-            raise serializers.ValidationError(detail={"password":"최소 한 개의 영문자와 숫자를 포함해 5글자 이상으로 만들어 주세요."})
+            raise serializers.ValidationError(detail={"password":"최소 한 개의 영문자와 숫자를 포함해 8글자 이상으로 만들어 주세요."})
         elif password != password_check :
             raise serializers.ValidationError(detail={"password":"동일한 비밀번호를 입력해 주세요."})
 

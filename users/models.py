@@ -7,7 +7,7 @@ from image_optimizer.fields import OptimizedImageField
 class UserManager(BaseUserManager):
     def create_user(self, username, nickname, password=None):
         if not username:
-            raise ValueError('Users must have a username')
+            raise ValueError('유저이름을 작성해주세요.')
 
         user = self.model(
             username=username,
@@ -34,7 +34,7 @@ class User(AbstractBaseUser):
         verbose_name='username',
         max_length=20,
         unique=True,
-        error_messages={'unique': "이미 존재하는 유저네임입니다."}
+        error_messages={'unique': "이미 존재하는 유저이름입니다."}
     )
     bio = models.CharField(max_length=255, default='', blank=True)
     profile_img = OptimizedImageField(
