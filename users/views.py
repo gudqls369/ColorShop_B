@@ -1,6 +1,6 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView,)
 from users.serializers import UserSerializer,CustomTokenObtainPairSerializer, ProfileSerializer
@@ -23,6 +23,14 @@ class UserView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+    
+class MockView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request):
+        user = request.user
+        user.is_admin = True
+        user.save()
+        return Response("get")
 
 class ProfileView(APIView):
     def get(self, request, user_id):
