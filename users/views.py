@@ -19,7 +19,7 @@ class UserView(APIView):
             serializer.save()
             return Response({"message":"가입완료!"}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
