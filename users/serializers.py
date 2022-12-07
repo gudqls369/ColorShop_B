@@ -38,11 +38,11 @@ class UserSerializer(serializers.ModelSerializer):
 
         
         if not re.search(username_reg, str(username)) :
-            raise serializers.ValidationError(detail={"username":"최소 한 개의 영문자와 숫자를 포함해 20글자 이하의 유저이름을 만들어주세요."})
+            raise serializers.ValidationError(detail={"username":" '유저이름'은 최소 한 개의 영문자와 숫자를 포함해 20글자 이하로 만들어주세요."})
 
     
         if not re.search(password_reg, str(password)) :
-            raise serializers.ValidationError(detail={"password":"최소 한 개의 영문자와 숫자를 포함해 8글자 이상으로 만들어 주세요."})
+            raise serializers.ValidationError(detail={"password":"'비밀번호'는 최소 한 개의 영문자와 숫자를 포함해 8글자 이상으로 만들어 주세요."})
         elif password != password_check :
             raise serializers.ValidationError(detail={"password":"동일한 비밀번호를 입력해 주세요."})
 
