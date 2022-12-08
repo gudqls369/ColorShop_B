@@ -45,6 +45,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     nickname = models.CharField(max_length=30, default="", unique=True, error_messages={'unique': "이미 존재하는 닉네임입니다."})
+    email = models.EmailField(max_length=30, default="", unique=True, error_messages={'unique': "이미 존재하는 이메일입니다."})
 
     objects = UserManager()
 
