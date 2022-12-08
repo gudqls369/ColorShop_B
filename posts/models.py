@@ -11,6 +11,12 @@ class Image(models.Model):
     before_image = models.ImageField(upload_to="before_image", blank=True, null=True)
     after_image = models.ImageField(upload_to="after_image", blank=True, null=True)
     
+class ImageModel(models.Model):
+    class Meta:
+        db_table = 'image_model'
+        
+    model_path = models.CharField(max_length=200)
+    
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     title = models.CharField(max_length=50)

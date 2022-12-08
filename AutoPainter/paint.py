@@ -66,7 +66,7 @@ def input_pic(input_dir, output_dir):
     f2.close()
 
 def paint(image):
-    load_model('./AutoPainter/media/model/model3/')
+    load_model('./AutoPainter/media/model/model1/')
     proceccing(image)
     
     before_image = './AutoPainter/media/before_image/' + str(image)[str(image).index('/')+1:]
@@ -76,7 +76,7 @@ def paint(image):
 
 def proceccing(image):
     try:
-        im = cv2.imread(str(image))
+        im = cv2.imdecode(str(image))
         im = cv2.resize(im, [512,512])
         cv2.imwrite(image, im)
     except Exception as e:
