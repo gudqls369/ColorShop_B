@@ -4,24 +4,25 @@ from django.contrib.auth.models import (
 )
 from image_optimizer.fields import OptimizedImageField
 
-# Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, username, password=None):
+    def create_user(self, username, nickname, password=None):
         if not username:
-            raise ValueError('Users must have a username')
+            raise ValueError('유저이름을 작성해주세요.')
 
         user = self.model(
             username=username,
+            nickname=nickname,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password=None):
+    def create_superuser(self, username, nickname, password=None):
         user = self.create_user(
             username,
-            password=password
+            nickname=nickname,
+            password=password,
         )
 
         user.is_admin = True
@@ -33,7 +34,7 @@ class User(AbstractBaseUser):
         verbose_name='username',
         max_length=20,
         unique=True,
-        error_messages={'unique': "이미 존재하는 유저네임입니다."}
+        error_messages={'unique': "이미 존재하는 유저이름입니다."}
     )
     bio = models.CharField(max_length=255, default='', blank=True)
     profile_img = OptimizedImageField(
@@ -50,7 +51,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['nickname',]
 
     def __str__(self):
         return self.username

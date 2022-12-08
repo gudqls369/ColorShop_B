@@ -3,6 +3,14 @@ from django.urls import reverse
 from users.models import User
 
 
+class Image(models.Model):
+    class Meta:
+        db_table = 'image'
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
+    before_image = models.ImageField(upload_to="before_image", blank=True, null=True)
+    after_image = models.ImageField(upload_to="after_image", blank=True, null=True)
+    
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     title = models.CharField(max_length=50)

@@ -3,8 +3,9 @@ from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from django.db.models.query_utils import Q
-from posts.models import Post, Comment
-from posts.serializers import PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, CommentCreateSerializer, PostLikeSerializer
+from posts.models import Post, Comment, Image
+from posts.serializers import PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer
+from AutoPainter.paint import paint
 
 class PostView(APIView):
     def get(self, request):
@@ -117,3 +118,25 @@ class LikeView(APIView):
         else:
             post.likes.add(request.user)
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
+        
+class ImageView(APIView):
+    def get(self, request):
+        image = Image.objects.all()
+        serializer = ImageSerializer(image, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        print(request.data)
+        serializer = ImageCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            image = serializer.save(user=request.user)
+            bf_img = image.before_image
+            paint(bf_img)
+            
+            bf_img = 'before_image/' + str(bf_img)[str(bf_img).index('/')+1:]
+            af_img = 'after_image/' + str(bf_img)[str(bf_img).index('/')+1:]
+            
+            serializer.save(before_image=bf_img, after_image=af_img)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
