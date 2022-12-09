@@ -58,7 +58,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "image", "updated_at", "user", "likes_count", "comments_count", "comments", "likes")  # 추가
+        fields = ("id", "title", "image", "updated_at", "user", "likes_count", "comments", "likes", "user_id")  # 추가
 
 
 class PostLikeSerializer(serializers.ModelSerializer):
