@@ -40,11 +40,15 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
 
 class PostListSerializer(serializers.ModelSerializer):
+    user_id = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
     likes = serializers.StringRelatedField(many=True)
     comments = CommentSerializer(many=True)
     likes_count = serializers.SerializerMethodField()
     comments_count = serializers.SerializerMethodField()
+
+    def get_user_id(self, obj):
+        return obj.user.id
 
     def get_user(self, obj):  # obj: 해당 post
         return obj.user.username
@@ -63,7 +67,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "image", "updated_at", "user", "likes_count", "comments_count")  # 추가
+        fields = ("id", "user_id", "title", "content", "image", "updated_at", "user", 'likes', "likes_count", 'comments', "comments_count")  # 추가
 
 
 class PostLikeSerializer(serializers.ModelSerializer):
@@ -74,7 +78,7 @@ class PostLikeSerializer(serializers.ModelSerializer):
     def get_user(self, obj):
         return obj.user.username
 
-    def get_like_count(self, obj):
+    def get_likes_count(self, obj):
         return obj.likes.count()
 
     class Meta:

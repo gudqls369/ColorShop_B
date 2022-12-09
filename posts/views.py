@@ -40,7 +40,7 @@ class FeedView(APIView): # 로그인된 사람 permissions
 class PostDetailView(APIView):
     def get(self, request, post_id): 
         post = get_object_or_404(Post, id=post_id)
-        serializer = PostSerializer(post)
+        serializer = PostListSerializer(post)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 수정
