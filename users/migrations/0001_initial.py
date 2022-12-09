@@ -14,49 +14,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="User",
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("password", models.CharField(max_length=128, verbose_name="password")),
-                (
-                    "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
-                ),
-                (
-                    "username",
-                    models.CharField(
-                        error_messages={"unique": "이미 존재하는 유저이름입니다."},
-                        max_length=20,
-                        unique=True,
-                        verbose_name="username",
-                    ),
-                ),
-                ("bio", models.CharField(blank=True, default="", max_length=255)),
-                (
-                    "profile_img",
-                    image_optimizer.fields.OptimizedImageField(
-                        blank=True, null=True, upload_to="uploads/%Y/%m/%d"
-                    ),
-                ),
-                ("is_active", models.BooleanField(default=True)),
-                ("is_admin", models.BooleanField(default=False)),
-                (
-                    "nickname",
-                    models.CharField(
-                        default="",
-                        error_messages={"unique": "이미 존재하는 닉네임입니다."},
-                        max_length=30,
-                        unique=True,
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('password', models.CharField(max_length=128, verbose_name='password')),
+                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
+                ('username', models.CharField(error_messages={'unique': '이미 존재하는 유저이름입니다.'}, max_length=20, unique=True, verbose_name='username')),
+                ('profile_img', image_optimizer.fields.OptimizedImageField(blank=True, null=True, upload_to='uploads/%Y/%m/%d')),
+                ('nickname', models.CharField(blank=True, default='', error_messages={'unique': '이미 존재하는 닉네임입니다.'}, max_length=30, unique=True)),
+                ('bio', models.CharField(blank=True, default='', max_length=255)),
+                ('is_active', models.BooleanField(default=True)),
+                ('is_admin', models.BooleanField(default=False)),
             ],
             options={
                 "abstract": False,

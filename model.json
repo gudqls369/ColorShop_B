@@ -1,0 +1,1 @@
+[{"model": "posts.imagemodel", "pk": 1, "fields": {"model_path": "./AutoPainter/media/autopaint_model/model1/"}}, {"model": "posts.imagemodel", "pk": 2, "fields": {"model_path": "./AutoPainter/media/autopaint_model/model2/"}}, {"model": "posts.imagemodel", "pk": 3, "fields": {"model_path": "./AutoPainter/media/autopaint_model/model3/"}}]

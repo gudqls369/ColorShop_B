@@ -3,8 +3,10 @@ from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from django.db.models.query_utils import Q
-from posts.models import Post, Comment, Image
-from posts.serializers import PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer, BestpostSerializer
+from posts.models import Post, Comment, Image, ImageModel
+from posts.serializers import (PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, 
+                               CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer, ImageModelSerializer)
+                               
 from AutoPainter.paint import paint
 
 class PostView(APIView):
@@ -112,12 +114,11 @@ class LikeView(APIView):
     def post(self, request, post_id):
         post = get_object_or_404(Post, id=post_id) # 게시글 받아오기
         if request.user in post.likes.all():
-            post.likes.remove(request.user)
-            return Response("좋아요를 최소했습니다.", status=status.HTTP_200_OK)
+            post.likes.remove(request.user) 
+            return Response("좋아요를 취소했습니다.", status=status.HTTP_204_NO_CONTENT)
         else:
             post.likes.add(request.user)
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
-        
 
 class ImageView(APIView):
     def get(self, request):
@@ -126,12 +127,12 @@ class ImageView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        print(request.data)
         serializer = ImageCreateSerializer(data=request.data)
         if serializer.is_valid():
             image = serializer.save(user=request.user)
+            choose_model = image.model
             bf_img = image.before_image
-            paint(bf_img)
+            paint(bf_img, choose_model)
             
             bf_img = 'before_image/' + str(bf_img)[str(bf_img).index('/')+1:]
             af_img = 'after_image/' + str(bf_img)[str(bf_img).index('/')+1:]
@@ -146,3 +147,9 @@ class CommunityView(APIView):
             posts = Post.objects.all()
             serializer = PostListSerializer(posts, many=True) # 복수
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ImageModelView(APIView):
+    def get(self, request, imagemodel_id):
+        model = get_object_or_404(ImageModel, id=imagemodel_id)
+        serializer = ImageModelSerializer(model)
+        return Response(serializer.data, status=status.HTTP_200_OK)

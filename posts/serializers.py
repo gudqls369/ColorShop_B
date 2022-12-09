@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from posts.models import Post, Comment, Image
-
+from posts.models import Post, Comment, Image, ImageModel
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -73,7 +72,6 @@ class PostLikeSerializer(serializers.ModelSerializer):
         model = Post
         fields = ("id", "user", "likes_count", 'likes')
 
-
 class ImageSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
@@ -86,7 +84,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class ImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ('before_image', 'after_image',)
+        fields = ('before_image', 'model', 'after_image',)
 
 class BestpostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -102,3 +100,13 @@ class BestpostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ("id", "title", "content", "image", "user", "likes", "likes_count")
+
+class ImageModelSerializer(serializers.ModelSerializer):
+    model_path = serializers.SerializerMethodField()
+    
+    def get_model_path(self,obj):
+        return obj.model_path
+    class Meta:
+        model = ImageModel
+        fields = ('model_path',)
+
