@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'ColorShop_B',
     'users',
     'posts',
-    'AutoPainter',
+    'AutoPainter'
 ]
 
 MIDDLEWARE = [

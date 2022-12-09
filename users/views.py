@@ -67,7 +67,6 @@ class ChangePasswordView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response({"message":"접근 권한 없음"}, status=status.HTTP_403_FORBIDDEN)
 
-
 class ProfileView(APIView):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
