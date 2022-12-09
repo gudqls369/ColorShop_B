@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.db.models.query_utils import Q
 from posts.models import Post, Comment, Image
 from posts.serializers import PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer
-from AutoPainter.paint import paint
+# from AutoPainter.paint import paint
 
 class PostView(APIView):
     def get(self, request):
