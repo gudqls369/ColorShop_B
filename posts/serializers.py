@@ -91,9 +91,13 @@ class ImageCreateSerializer(serializers.ModelSerializer):
         fields = ('before_image', 'model', 'after_image',)
 
 class BestPostSerializer(serializers.ModelSerializer):
+    user_id = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
     likes = serializers.StringRelatedField(many=True)
     likes_count = serializers.SerializerMethodField()
+
+    def get_user_id(self, obj):
+        return obj.user.id
 
     def get_user(self, obj):
         return obj.user.username
@@ -103,13 +107,13 @@ class BestPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "content", "image", "user", "likes", "likes_count")
+        fields = ("id", "user_id", "title", "content", "image", "user", "likes", "likes_count")
 
-class ImageModelSerializer(serializers.ModelSerializer):
-    model_path = serializers.SerializerMethodField()
+# class ImageModelSerializer(serializers.ModelSerializer):
+#     model_path = serializers.SerializerMethodField()
     
-    def get_model_path(self,obj):
-        return obj.model_path
-    class Meta:
-        model = ImageModel
-        fields = ('model_path',)
+#     def get_model_path(self,obj):
+#         return obj.model_path
+#     class Meta:
+#         model = ImageModel
+#         fields = ('model_path',)
