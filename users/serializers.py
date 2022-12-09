@@ -111,6 +111,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         token['username'] = user.username
+
         return token
 
 class ProfileSerializer(serializers.ModelSerializer):

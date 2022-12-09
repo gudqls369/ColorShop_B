@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from posts.models import Post, Comment, Image, ImageModel
 
-
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
@@ -40,11 +39,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
 
 class PostListSerializer(serializers.ModelSerializer):
+    user_id = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
     likes = serializers.StringRelatedField(many=True)
-    comments = CommentSerializer(many=True)
     likes_count = serializers.SerializerMethodField()
-    comments_count = serializers.SerializerMethodField()
+
+    def get_user_id(self, obj):
+        return obj.user.id
 
     def get_user(self, obj):  # obj: 해당 post
         return obj.user.username
@@ -54,12 +55,6 @@ class PostListSerializer(serializers.ModelSerializer):
 
     def get_likes_count(self, obj):
         return obj.likes.count()
-
-    def get_comments(self, obj):
-        return obj.comments.user
-
-    def get_comments_count(self, obj):
-        return obj.comments.count() # 변경 주의
 
     class Meta:
         model = Post
@@ -74,7 +69,7 @@ class PostLikeSerializer(serializers.ModelSerializer):
     def get_user(self, obj):
         return obj.user.username
 
-    def get_like_count(self, obj):
+    def get_likes_count(self, obj):
         return obj.likes.count()
 
     class Meta:
@@ -94,7 +89,22 @@ class ImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ('before_image', 'model', 'after_image',)
-        
+
+class BestPostSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    likes = serializers.StringRelatedField(many=True)
+    likes_count = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        return obj.user.username
+
+    def get_likes_count(self, obj):
+        return obj.likes.count()
+
+    class Meta:
+        model = Post
+        fields = ("id", "title", "content", "image", "user", "likes", "likes_count")
+
 class ImageModelSerializer(serializers.ModelSerializer):
     model_path = serializers.SerializerMethodField()
     

@@ -4,14 +4,15 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from django.db.models.query_utils import Q
 from posts.models import Post, Comment, Image, ImageModel
-from posts.serializers import (PostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, 
+from posts.serializers import (BestPostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, 
                                CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer, ImageModelSerializer)
+                               
 from AutoPainter.paint import paint
 
 class PostView(APIView):
     def get(self, request):
-        posts = Post.objects.all()
-        serializer = PostListSerializer(posts, many=True) # 복수
+        posts = Post.objects.all().order_by('-likes')[:6]
+        serializer = BestPostSerializer(posts, many=True) # 복수
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -25,26 +26,12 @@ class PostView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class FeedView(APIView): # 로그인된 사람 permissions
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        q = Q()
-        for user in request.user.followings.all(): # 내가 팔로우하는 모든 유저
-            q.add(Q(user=user),q.OR)
-        feeds = Post.objects.filter(q) # follow하는 사람의 글을 모두 가져오기
-        serializer = PostListSerializer(feeds, many=True) # 시리얼라이저 가져오기
-        return Response(serializer.data)
-
-
 class PostDetailView(APIView):
     def get(self, request, post_id): 
         post = get_object_or_404(Post, id=post_id)
-        serializer = PostSerializer(post)
+        serializer = PostListSerializer(post)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # 수정
     def put(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         if request.user == post.user:
@@ -57,7 +44,6 @@ class PostDetailView(APIView):
         else:
             return Response("권한이 없습니다.", status=status.HTTP_403_FORBIDDEN)
 
-    # 삭제
     def delete(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         if request.user == post.user:
@@ -71,7 +57,6 @@ class CommentView(APIView):
     def get(self, request, post_id):
         post = Post.objects.get(id=post_id)
         comments = post.comments.all() 
-
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -115,11 +100,11 @@ class LikeView(APIView):
         post = get_object_or_404(Post, id=post_id) # 게시글 받아오기
         if request.user in post.likes.all():
             post.likes.remove(request.user) 
-            return Response("좋아요를 최소했습니다.", status=status.HTTP_204_NO_CONTENT)
+            return Response("좋아요를 취소했습니다.", status=status.HTTP_204_NO_CONTENT)
         else:
             post.likes.add(request.user)
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
-        
+
 class ImageView(APIView):
     def get(self, request):
         image = Image.objects.all()
@@ -141,7 +126,13 @@ class ImageView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
+class CommunityView(APIView):
+    def get(self, request):
+            posts = Post.objects.all()
+            serializer = PostListSerializer(posts, many=True) # 복수
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
 class ImageModelView(APIView):
     def get(self, request, imagemodel_id):
         model = get_object_or_404(ImageModel, id=imagemodel_id)
