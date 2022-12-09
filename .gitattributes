@@ -1,4 +1,1 @@
-AutoPainter/media/model/model3/export.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
-AutoPainter/media/model/model2/export.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
-AutoPainter/media/model/model1/export.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
 *.ext !text !filter !merge !diff
