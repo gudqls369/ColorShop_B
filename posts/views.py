@@ -130,8 +130,9 @@ class ImageView(APIView):
         serializer = ImageCreateSerializer(data=request.data)
         if serializer.is_valid():
             image = serializer.save(user=request.user)
+            choose_model = image.model
             bf_img = image.before_image
-            paint(bf_img)
+            paint(bf_img, choose_model)
             
             bf_img = 'before_image/' + str(bf_img)[str(bf_img).index('/')+1:]
             af_img = 'after_image/' + str(bf_img)[str(bf_img).index('/')+1:]

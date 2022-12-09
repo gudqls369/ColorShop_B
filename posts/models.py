@@ -9,6 +9,7 @@ class Image(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     before_image = models.ImageField(upload_to="before_image", blank=True, null=True)
+    model = models.CharField(max_length=1000, null=True)
     after_image = models.ImageField(upload_to="after_image", blank=True, null=True)
     
 class ImageModel(models.Model):

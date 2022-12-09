@@ -51,7 +51,6 @@ def load_model(local_models_dir):
             )
 
 def input_pic(input_dir, output_dir):
-    proceccing(input_dir)
     f = open(str(input_dir), 'rb')
     filedata = f.read()
     f.close()
@@ -65,8 +64,8 @@ def input_pic(input_dir, output_dir):
     f2.write(output_data)
     f2.close()
 
-def paint(image):
-    load_model('./AutoPainter/media/model/model1/')
+def paint(image, model_path):
+    load_model(model_path)
     proceccing(image)
     
     before_image = './AutoPainter/media/before_image/' + str(image)[str(image).index('/')+1:]
@@ -75,9 +74,6 @@ def paint(image):
     input_pic(before_image, after_image)
 
 def proceccing(image):
-    try:
-        im = cv2.imdecode(str(image))
+        im = cv2.imread('./AutoPainter/media/'+str(image))
         im = cv2.resize(im, [512,512])
-        cv2.imwrite(image, im)
-    except Exception as e:
-        print(str(e))
+        cv2.imwrite('./AutoPainter/media/'+str(image), im)
