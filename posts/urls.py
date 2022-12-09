@@ -5,7 +5,7 @@ from posts import views
 urlpatterns = [
     path('', views.PostView.as_view(), name='post_view'),
     path('feed/', views.FeedView.as_view(), name='feed_view'),
-    path('cummunity/', views.CommunityView.as_view(), name='communit_view'),
+    path('community/', views.CommunityView.as_view(), name='communit_view'),
     path('<int:post_id>/', views.PostDetailView.as_view(), name='post_detail_view'),
     # path('<int:pk>/', views.PostDetailView.as_view(), name='post_detail_view'),
     path('<int:post_id>/comment/', views.CommentView.as_view(), name='comment_view'),

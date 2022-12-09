@@ -73,16 +73,6 @@ class PostLikeSerializer(serializers.ModelSerializer):
         model = Post
         fields = ("id", "user", "likes_count", 'likes')
 
-    def get_comments(self, obj):
-        return obj.comments.user
-
-    def get_comments_count(self, obj):
-        return obj.comments.count() # 변경 주의
-
-    class Meta:
-        model = Post
-        fields = ("pk", "title", "image", "updated_at", "user", "likes", "comments", "likes_count", "comments_count")  # 추가
-
 
 class ImageSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()

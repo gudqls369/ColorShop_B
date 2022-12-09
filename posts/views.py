@@ -10,7 +10,6 @@ from AutoPainter.paint import paint
 class PostView(APIView):
     def get(self, request):
         posts = Post.objects.all().order_by('-likes')[:6]
-        print(posts)
         serializer = BestpostSerializer(posts, many=True) # 복수
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -118,7 +117,8 @@ class LikeView(APIView):
         else:
             post.likes.add(request.user)
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
-            
+        
+
 class ImageView(APIView):
     def get(self, request):
         image = Image.objects.all()

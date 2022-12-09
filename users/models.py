@@ -36,16 +36,17 @@ class User(AbstractBaseUser):
         unique=True,
         error_messages={'unique': "이미 존재하는 유저이름입니다."}
     )
-    bio = models.CharField(max_length=255, default='', blank=True)
     profile_img = OptimizedImageField(
         upload_to="uploads/%Y/%m/%d",
         optimized_image_output_size=(300, 300),
         optimized_image_resize_method="cover",  #  "crop", "cover", "contain", "width", "height", "thumbnail" or None
         null=True, blank=True
     )
+    nickname = models.CharField(max_length=30, default="", blank=True, unique=True, error_messages={'unique': "이미 존재하는 닉네임입니다."})
+    bio = models.CharField(max_length=255, default='', blank=True)
+    
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    nickname = models.CharField(max_length=30, default="", unique=True, error_messages={'unique': "이미 존재하는 닉네임입니다."})
 
     objects = UserManager()
 
