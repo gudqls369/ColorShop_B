@@ -33,9 +33,14 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    
+    def get_user(self, obj):
+        return obj.user.username
+        
     class Meta:
         model = Post
-        fields = ("title", "image", "content")  # 검증에 필요한 부분
+        fields = ("user", "title", "image", "content")  # 검증에 필요한 부분
 
 
 class PostListSerializer(serializers.ModelSerializer):
@@ -58,7 +63,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "user_id", "title", "content", "image", "updated_at", "user", 'likes', "likes_count", 'comments', "comments_count")  # 추가
+        fields = ("id", "title", "image", "updated_at", "user", "likes_count", "comments", "likes", "user_id")  # 추가
 
 
 class PostLikeSerializer(serializers.ModelSerializer):
