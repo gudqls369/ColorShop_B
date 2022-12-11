@@ -33,9 +33,14 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    
+    def get_user(self, obj):
+        return obj.user.username
+        
     class Meta:
         model = Post
-        fields = ("title", "image", "content")  # 검증에 필요한 부분
+        fields = ("user", "title", "image", "content")  # 검증에 필요한 부분
 
 
 class PostListSerializer(serializers.ModelSerializer):
