@@ -4,8 +4,8 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from django.db.models.query_utils import Q
 from posts.models import Post, Comment, Image, ImageModel
-from posts.serializers import (PostSerializer, BestPostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, 
-                               CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer, ImageModelSerializer)
+from posts.serializers import (BestPostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, 
+                               CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer, ImageModelSerializer, ImageDetailSerializer)
                                
 from AutoPainter.paint import paint
 
@@ -136,4 +136,10 @@ class ImageModelView(APIView):
     def get(self, request, imagemodel_id):
         model = get_object_or_404(ImageModel, id=imagemodel_id)
         serializer = ImageModelSerializer(model)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ImageDetailView(APIView):
+    def get(self, request, image_id):
+        image = get_object_or_404(Image, id=image_id)
+        serializer = ImageDetailSerializer(image)
         return Response(serializer.data, status=status.HTTP_200_OK)
