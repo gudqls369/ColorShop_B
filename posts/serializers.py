@@ -58,7 +58,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "user_id", "title", "content", "image", "updated_at", "user", 'likes', "likes_count", 'comments', "comments_count")  # 추가
+        fields = ("id", "user_id", "title", "content", "image", "updated_at", "user", 'likes', "likes_count")  # 추가
 
 
 class PostLikeSerializer(serializers.ModelSerializer):
@@ -109,11 +109,11 @@ class BestPostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ("id", "user_id", "title", "content", "image", "user", "likes", "likes_count")
 
-# class ImageModelSerializer(serializers.ModelSerializer):
-#     model_path = serializers.SerializerMethodField()
+class ImageModelSerializer(serializers.ModelSerializer):
+    model_path = serializers.SerializerMethodField()
     
-#     def get_model_path(self,obj):
-#         return obj.model_path
-#     class Meta:
-#         model = ImageModel
-#         fields = ('model_path',)
+    def get_model_path(self,obj):
+        return obj.model_path
+    class Meta:
+        model = ImageModel
+        fields = ('model_path',)
