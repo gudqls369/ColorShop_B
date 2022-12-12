@@ -75,7 +75,6 @@ class ProfileView(APIView):
 
     def put(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
-        
         if request.user == user:
             serializer = ProfileSerializer(user, data=request.data)
             if serializer.is_valid():
