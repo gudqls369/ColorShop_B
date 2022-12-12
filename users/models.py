@@ -40,6 +40,7 @@ class User(AbstractBaseUser):
         upload_to="uploads/%Y/%m/%d",
         optimized_image_output_size=(300, 300),
         optimized_image_resize_method="cover",  #  "crop", "cover", "contain", "width", "height", "thumbnail" or None
+        default="bros_blank.jpg",
         null=True, blank=True
     )
     nickname = models.CharField(max_length=30, default="", blank=True, unique=True, error_messages={'unique': "이미 존재하는 닉네임입니다."})
