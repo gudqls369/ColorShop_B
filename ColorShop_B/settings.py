@@ -132,6 +132,10 @@ AUTH_USER_MODEL = "users.User"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ORIGIN_WHITELIST = ['https://www.ai-color.shop']
+
+CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
+
 SIMPLE_JWT = {
 
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
