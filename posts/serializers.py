@@ -1,6 +1,21 @@
 from rest_framework import serializers
 from posts.models import Post, Comment, Image, ImageModel
 
+
+class ImageSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        return obj.user.username
+    class Meta:
+        model = Image
+        fields = '__all__'
+
+class ImageCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ('before_image', 'model', 'after_image',)
+
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
@@ -21,15 +36,14 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
-    likes = serializers.StringRelatedField(many=True)
-    comments = CommentSerializer(many=True)
+
 
     def get_user(self, obj):
         return obj.user.username # 유저 이메일이 돌아가게 되어 있다.
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ('user', 'title', 'image', 'content')
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
@@ -48,6 +62,7 @@ class PostListSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     likes = serializers.StringRelatedField(many=True)
     likes_count = serializers.SerializerMethodField()
+    image = ImageSerializer()
 
     def get_user_id(self, obj):
         return obj.user.id
@@ -63,7 +78,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "content", "image_id", "created_at", "updated_at", "user", "likes_count", "comments", "likes", "user_id")  # 추가
+        fields = ("id", "title", "content", "image_id", "image", "created_at", "updated_at", "user", "likes_count", "comments", "likes", "user_id")  # 추가
 
 
 class PostLikeSerializer(serializers.ModelSerializer):
@@ -81,25 +96,12 @@ class PostLikeSerializer(serializers.ModelSerializer):
         model = Post
         fields = ("id", "user", "likes_count", 'likes')
 
-class ImageSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
-
-    def get_user(self, obj):
-        return obj.user.username
-    class Meta:
-        model = Image
-        fields = '__all__'
-
-class ImageCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ('before_image', 'model', 'after_image',)
-
 class BestPostSerializer(serializers.ModelSerializer):
     user_id = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
     likes = serializers.StringRelatedField(many=True)
     likes_count = serializers.SerializerMethodField()
+    image = ImageSerializer()
 
     def get_user_id(self, obj):
         return obj.user.id
