@@ -1,6 +1,4 @@
-from django.shortcuts import render
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth.views import PasswordResetView
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import status, permissions
@@ -39,9 +37,6 @@ class ChangePasswordView(APIView):
         user = get_object_or_404(User, id=user_id)
         serializer = ChangePasswordSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-class ChangePasswordView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
