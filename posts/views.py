@@ -11,7 +11,11 @@ from AutoPainter.paint import paint
 
 class PostView(APIView):
     def get(self, request):
-        posts = Post.objects.all().order_by('-likes')[:6]
+
+        posts = Post.objects.all().order_by("-likes")
+        posts=set(posts)
+        posts=list(posts)
+        posts= posts[:6]
         serializer = BestPostSerializer(posts, many=True) # 복수
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -98,10 +102,14 @@ class LikeView(APIView):
     def post(self, request, post_id):
         post = get_object_or_404(Post, id=post_id) # 게시글 받아오기
         if request.user in post.likes.all():
+            post.like_count -= 1
             post.likes.remove(request.user) 
+            post.save()
             return Response("좋아요를 취소했습니다.", status=status.HTTP_204_NO_CONTENT)
         else:
+            post.like_count += 1
             post.likes.add(request.user)
+            post.save()
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
 
 class ImageView(APIView):
@@ -140,6 +148,6 @@ class ImageModelView(APIView):
 
 class ImageDetailView(APIView):
     def get(self, request, image_id):
-        image = get_object_or_404(Image, id=image_id)
-        serializer = ImageDetailSerializer(image)
+        aimage = get_object_or_404(Image, id=image_id)
+        serializer = ImageDetailSerializer(aimage)
         return Response(serializer.data, status=status.HTTP_200_OK)
