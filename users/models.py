@@ -39,7 +39,7 @@ class User(AbstractBaseUser):
     profile_img = OptimizedImageField(
         upload_to="uploads/%Y/%m/%d",
         optimized_image_output_size=(300, 300),
-        optimized_image_resize_method="cover",  #  "crop", "cover", "contain", "width", "height", "thumbnail" or None
+        optimized_image_resize_method="cover",
         default="bros_blank.jpg",
         null=True, blank=True
     )
@@ -63,11 +63,10 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
     def is_staff(self):
         "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin
+        
