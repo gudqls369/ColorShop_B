@@ -13,9 +13,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g1aioy8&!(t=ysehfnh12%68tl&1lo5t!i9ecob)ny76s_ii6j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', '0') == '1'
+DEBUG = True
+# DEBUG = os.environ.get('DEBUG', '0') == '1'
 
-ALLOWED_HOSTS = ['backend', ]
+# ALLOWED_HOSTS = ['backend', ]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -132,9 +134,9 @@ AUTH_USER_MODEL = "users.User"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ORIGIN_WHITELIST = ['https://www.ai-color.shop']
+# CORS_ORIGIN_WHITELIST = ['https://www.ai-color.shop']
 
-CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
+# CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
 
 SIMPLE_JWT = {
 
