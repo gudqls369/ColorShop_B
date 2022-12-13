@@ -26,6 +26,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(User, related_name='like_posts')
+    like_count = models.PositiveIntegerField(default=0, )
 
     def get_absolute_url(self):
         return reverse('post_detail_view', kwargs={"post_id":self.id})
