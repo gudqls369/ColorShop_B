@@ -1,11 +1,13 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import status, permissions
+from rest_framework import status
 from rest_framework.response import Response
-from django.db.models.query_utils import Q
 from posts.models import Post, Comment, Image, ImageModel
-from posts.serializers import (BestPostSerializer, PostListSerializer, PostCreateSerializer, CommentSerializer, 
-                               CommentCreateSerializer, PostLikeSerializer, ImageSerializer, ImageCreateSerializer, ImageModelSerializer, ImageDetailSerializer)
+from posts.serializers import (BestPostSerializer, PostSerializer, PostListSerializer, 
+                                PostCreateSerializer, PostLikeSerializer, 
+                                CommentSerializer, CommentCreateSerializer, 
+                                ImageSerializer, ImageCreateSerializer, 
+                                ImageModelSerializer, ImageDetailSerializer)
                                
 from AutoPainter.paint import paint
 
@@ -16,7 +18,7 @@ class PostView(APIView):
         posts=set(posts)
         posts=list(posts)
         posts= posts[:6]
-        serializer = BestPostSerializer(posts, many=True) # 복수
+        serializer = BestPostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -38,7 +40,7 @@ class PostDetailView(APIView):
     def put(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         if request.user == post.user:
-            serializer = PostCreateSerializer(post, data=request.data)
+            serializer = PostSerializer(post, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
@@ -100,7 +102,7 @@ class LikeView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, post_id):
-        post = get_object_or_404(Post, id=post_id) # 게시글 받아오기
+        post = get_object_or_404(Post, id=post_id)
         if request.user in post.likes.all():
             post.like_count -= 1
             post.likes.remove(request.user) 
@@ -137,7 +139,7 @@ class ImageView(APIView):
 class CommunityView(APIView):
     def get(self, request):
             posts = Post.objects.all()
-            serializer = PostListSerializer(posts, many=True) # 복수
+            serializer = PostListSerializer(posts, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ImageModelView(APIView):

@@ -1,7 +1,6 @@
 from django.urls import path 
 from posts import views
 
-
 urlpatterns = [
     path('', views.PostView.as_view(), name='post_view'),
     path('community/', views.CommunityView.as_view(), name='communit_view'),
