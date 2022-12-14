@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from posts.models import Post, Comment, Image, ImageModel
 
-
 class ImageSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
@@ -24,27 +23,22 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        # fields = '__all__'
-        exclude = ("post",) # 1개만 제외할 때는 exclude를 쓰기도 한다.
-
+        exclude = ("post",)
 
 class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ("content",)
 
-
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
-
     def get_user(self, obj):
-        return obj.user.username # 유저 이메일이 돌아가게 되어 있다.
+        return obj.user.username
 
     class Meta:
         model = Post
         fields = ('user', 'title', 'image', 'content')
-
 
 class PostCreateSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -54,8 +48,7 @@ class PostCreateSerializer(serializers.ModelSerializer):
         
     class Meta:
         model = Post
-        fields = ("user", "title", "image", "content")  # 검증에 필요한 부분
-
+        fields = ("user", "title", "image", "content")
 
 class PostListSerializer(serializers.ModelSerializer):
     user_id = serializers.SerializerMethodField()
@@ -67,7 +60,7 @@ class PostListSerializer(serializers.ModelSerializer):
     def get_user_id(self, obj):
         return obj.user.id
 
-    def get_user(self, obj):  # obj: 해당 post
+    def get_user(self, obj):
         return obj.user.username
 
     def get_likes(self, obj):
@@ -78,8 +71,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "content", "image_id", "image", "created_at", "updated_at", "user", "likes_count", "comments", "likes", "user_id")  # 추가
-
+        fields = ("id", "title", "content", "image_id", "image", "created_at", "updated_at", "user", "likes_count", "comments", "likes", "user_id")
 
 class PostLikeSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -94,7 +86,7 @@ class PostLikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "user", "likes_count", 'likes')
+        fields = ("id", "user", "likes_count", 'likes','like_count')
 
 class BestPostSerializer(serializers.ModelSerializer):
     user_id = serializers.SerializerMethodField()
@@ -121,10 +113,11 @@ class ImageModelSerializer(serializers.ModelSerializer):
     
     def get_model_path(self,obj):
         return obj.model_path
+
     class Meta:
         model = ImageModel
         fields = ('model_path',)
-        
+
 class ImageDetailSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
     

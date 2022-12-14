@@ -11,13 +11,13 @@ class Image(models.Model):
     before_image = models.ImageField(upload_to="before_image", blank=True, null=True)
     model = models.CharField(max_length=1000, null=True)
     after_image = models.ImageField(upload_to="after_image", blank=True, null=True)
-    
+
 class ImageModel(models.Model):
     class Meta:
         db_table = 'image_model'
         
     model_path = models.CharField(max_length=200)
-    
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     title = models.CharField(max_length=50)
@@ -26,13 +26,13 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(User, related_name='like_posts')
+    like_count = models.PositiveIntegerField(default=0, )
 
     def get_absolute_url(self):
         return reverse('post_detail_view', kwargs={"post_id":self.id})
      
     def __str__(self):
         return str(self.title)
-
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,3 +43,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.content)
+        

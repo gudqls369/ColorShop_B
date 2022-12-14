@@ -27,8 +27,6 @@ def load_model(local_models_dir):
         if name.startswith("."):
             continue
 
-        print("loading model", name)
-
         with tf.compat.v1.Graph().as_default() as graph:
             config = tf.compat.v1.ConfigProto()
             config.gpu_options.allow_growth = True
