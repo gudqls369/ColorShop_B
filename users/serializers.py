@@ -86,19 +86,23 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         oldpassword = self.context.get("request").user.password
+        password_reg = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
         password = data.get("password")
         repassword = data.get("repassword")
 
         if check_password(password, oldpassword):
             raise serializers.ValidationError(detail={"password":"현재 사용중인 비밀번호와 동일한 비밀번호는 입력할 수 없습니다."})
         
-        if password != repassword:
-            raise serializers.ValidationError(detail={"password":"비밀번호가 일치하지 않습니다."})
+        if not re.search(password_reg, str(password)) :
+            raise serializers.ValidationError(detail={"password":"'비밀번호'는 최소 한 개의 영문자와 숫자를 포함해 8글자 이상으로 만들어 주세요."})
+        elif password != repassword :
+            raise serializers.ValidationError(detail={"password":"동일한 비밀번호를 입력해 주세요."})
         
         return data
 
+
     def update(self, instance, validated_data):
-        instance.passowrd = validated_data.get('password', instance.password)
+        instance.password = validated_data.get('password', instance.password)
         instance.set_password(instance.password)
         instance.save()
         return instance

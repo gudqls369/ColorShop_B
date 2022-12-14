@@ -28,7 +28,6 @@ class MockView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         user = request.user
-        user.is_admin = True
         user.save()
         return Response("get")
 
@@ -51,9 +50,12 @@ class ChangePasswordView(APIView):
 
         if user == request.user:
             serializer = ChangePasswordSerializer(user, data=request.data, context={'request': request})
+            print(request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response({"message":"비밀번호 변경이 완료되었습니다! 다시 로그인해주세요."} , status=status.HTTP_201_CREATED)
+            print(serializer.data)
+            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response({"message":"접근 권한 없음"}, status=status.HTTP_403_FORBIDDEN)
 
