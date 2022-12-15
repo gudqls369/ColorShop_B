@@ -34,6 +34,9 @@
 - 회원정보 보기, 수정, 탈퇴
 - 내가 쓴 게시글, 좋아요한 게시글 보기
 
+# 시연 영상
+[![시연 영상](https://img.youtube.com/vi/UMNOLli3Uns/0.jpg)](https://www.youtube.com/watch?v=UMNOLli3Uns)
+
 # 팀원
 | 정형빈 | 고은혜 | 윤민성 | 전다솔 | 최동근 |
 | :---: | :---: | :---: | :---: | :---: |
