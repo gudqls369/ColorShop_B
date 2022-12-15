@@ -5,9 +5,9 @@
 - 사진 편집 프로그램인 포토샵에서 영감을 따 온 이름으로 원하는 이미지에 ‘색을 입힌다’는 사이트의 목적에 따라 컬러샵이라는 이름을 짓게 되었다.
 
 # S.A
-[팀 notion](https://trite-professor-e94.notion.site/ColorShop-a59fcd4f60b749f09cf860a545eca8e5)
-[backend github 주소](https://github.com/0sol0/ColorShop_B)
-[frontend github 주소](https://github.com/0sol0/ColorShop_F)
+[팀 Notion](https://trite-professor-e94.notion.site/ColorShop-a59fcd4f60b749f09cf860a545eca8e5)<br>
+[Backend Github](https://github.com/0sol0/ColorShop_B)<br>
+[Frontend Github](https://github.com/0sol0/ColorShop_F)<br>
 
 ## 와이어 프레임
 ![image](https://user-images.githubusercontent.com/110761719/207755489-569b6a8b-3461-46c9-900f-0d198f1a21c6.png)
@@ -36,5 +36,5 @@
 
 # 팀원
 | 정형빈 | 고은혜 | 윤민성 | 전다솔 | 최동근 |
-| --- | --- | --- | --- | --- |
-| [github주소](https://github.com/gudqls369) | [github주소](https://github.com/gracegoh924) | [github주소](https://github.com/0sol0) | [github주소](https://github.com/tweaky3047) | [github주소](https://github.com/rippliny) |
+| :---: | :---: | :---: | :---: | :---: |
+| ![image](https://user-images.githubusercontent.com/110761719/207762846-e027a03a-b706-45f3-b487-0035fd6e51cf.png) [github](https://github.com/gudqls369) | ![image](https://user-images.githubusercontent.com/110761719/207763003-30e8d6a1-74de-4807-a15b-81832a000c64.png) [github](https://github.com/gracegoh924) | ![image](https://user-images.githubusercontent.com/110761719/207763343-c1a2e810-013a-424c-9185-62016e6e6f29.png) [github](https://github.com/0sol0) | ![image](https://user-images.githubusercontent.com/110761719/207763268-874b6a31-2c49-4a80-accb-cc64d67121c8.png)[github](https://github.com/tweaky3047) | ![image](https://user-images.githubusercontent.com/110761719/207763158-bea36a18-8ba8-43b4-8dea-8070cd197ab9.png) [github](https://github.com/rippliny) | 
