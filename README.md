@@ -33,5 +33,6 @@
 - 내가 쓴 게시글, 좋아요한 게시글 보기
 
 # 팀원
-정형빈 | 고은혜 | 윤민성 | 전다솔 | 최동근
-       | [github](https://github.com/gracegoh924) |
+| 정형빈 | 고은혜 | 윤민성 | 전다솔 | 최동근 |
+| --- | --- | --- | --- | --- |
+| [github](https://github.com/gudqls369) | [github](https://github.com/gracegoh924) | [github](https://github.com/0sol0) | [github](https://github.com/tweaky3047) | [github](https://github.com/rippliny) |
