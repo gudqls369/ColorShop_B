@@ -45,4 +45,4 @@
 <br>
 
 # 기타 참고사항
-***[트러블 슈팅](https://github.com/0sol0/ColorShop_B/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)***
+**[트러블 슈팅](https://github.com/0sol0/ColorShop_B/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)**
