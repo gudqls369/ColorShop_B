@@ -11,13 +11,11 @@
 [Backend Github](https://github.com/0sol0/ColorShop_B)<br>
 [Frontend Github](https://github.com/0sol0/ColorShop_F)<br>
 
-## 와이어 프레임
+## [와이어 프레임](https://www.figma.com/file/rZhRm9OZ85prLdR2TVtszA/B4AFTER-FINAL?node-id=0%3A1)
 ![image](https://user-images.githubusercontent.com/110761719/207755489-569b6a8b-3461-46c9-900f-0d198f1a21c6.png)
-[Figma](https://www.figma.com/file/rZhRm9OZ85prLdR2TVtszA/B4AFTER-FINAL?node-id=0%3A1)
 
-## ERD
+## [ERD](https://www.erdcloud.com/p/ji5u4nHoRz2dRZfMA)
 ![image](https://user-images.githubusercontent.com/110761719/207755976-c31b17b8-5a61-492c-b513-80e3100205b7.png)
-[ERD](https://www.erdcloud.com/p/ji5u4nHoRz2dRZfMA)
 
 ## API 명세서
 ![image](https://user-images.githubusercontent.com/110761719/207757976-18d7f32a-a993-4fa0-809d-b4d13e63bfba.png)
@@ -36,11 +34,12 @@
 - 회원정보 보기, 수정, 탈퇴
 - 내가 쓴 게시글, 좋아요한 게시글 보기
 
-<br>
-
-***[트러블 슈팅](https://github.com/0sol0/ColorShop_B/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)***
-
 # 팀원
 | 정형빈 | 고은혜 | 윤민성 | 전다솔 | 최동근 |
 | :---: | :---: | :---: | :---: | :---: |
 | ![image](https://user-images.githubusercontent.com/110761719/207762846-e027a03a-b706-45f3-b487-0035fd6e51cf.png) [github](https://github.com/gudqls369) | ![image](https://user-images.githubusercontent.com/110761719/207763003-30e8d6a1-74de-4807-a15b-81832a000c64.png) [github](https://github.com/gracegoh924) | ![image](https://user-images.githubusercontent.com/110761719/207763268-874b6a31-2c49-4a80-accb-cc64d67121c8.png) [github](https://github.com/0sol0) | ![image](https://user-images.githubusercontent.com/110761719/207763343-c1a2e810-013a-424c-9185-62016e6e6f29.png) [github](https://github.com/tweaky3047) | ![image](https://user-images.githubusercontent.com/110761719/207763158-bea36a18-8ba8-43b4-8dea-8070cd197ab9.png) [github](https://github.com/rippliny) | 
+
+<br>
+
+# 기타 참고사항
+***[트러블 슈팅](https://github.com/0sol0/ColorShop_B/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)***
