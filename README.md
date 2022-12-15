@@ -1,6 +1,8 @@
 ![image](https://user-images.githubusercontent.com/110761719/207755588-07f40bc3-1bac-4586-b621-1a188d5a0d16.png)
 
-# ColorShop
+![image](https://img.shields.io/badge/Language-Python-blue)
+![image](https://img.shields.io/badge/Framework-Django-green)
+
 - 원하는 밑그림에 AI를 활용하여 색을 입히는 사이트
 - 사진 편집 프로그램인 포토샵에서 영감을 따 온 이름으로 원하는 이미지에 ‘색을 입힌다’는 사이트의 목적에 따라 컬러샵이라는 이름을 짓게 되었다.
 
