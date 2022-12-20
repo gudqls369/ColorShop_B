@@ -105,14 +105,10 @@ class LikeView(APIView):
     def post(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         if request.user in post.likes.all():
-            post.like_count -= 1
             post.likes.remove(request.user) 
-            post.save()
-            return Response("좋아요를 취소했습니다.", status=status.HTTP_204_NO_CONTENT)
+            return Response("좋아요를 취소했습니다.", status=status.HTTP_200_OK)
         else:
-            post.like_count += 1
             post.likes.add(request.user)
-            post.save()
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
 
 class ImageView(APIView):
