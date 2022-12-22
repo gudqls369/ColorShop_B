@@ -11,4 +11,5 @@ urlpatterns = [
     path('image/', views.ImageView.as_view(), name='image_view'),
     path('image/<int:image_id>/', views.ImageDetailView.as_view(), name='image_detail_view'),
     path('choosemodel/<int:imagemodel_id>/', views.ImageModelView().as_view(), name="imagemodel_view"),
+    path('trans1/', views.ImageModelView().as_view(), name="imagemodel_view"),
 ]

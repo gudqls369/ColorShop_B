@@ -72,6 +72,7 @@ def paint(image, model_path):
     input_pic(before_image, after_image)
 
 def proceccing(image):
-        im = cv2.imread('./AutoPainter/media/'+str(image))
+        im = cv2.imread(image)
+        print(im)
         im = cv2.resize(im, [512,512])
         cv2.imwrite('./AutoPainter/media/'+str(image), im)

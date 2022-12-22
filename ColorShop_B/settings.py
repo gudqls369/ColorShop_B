@@ -130,11 +130,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
 
-CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ORIGIN_WHITELIST = ['https://www.ai-color.shop']
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = [
+    'https://www.ai-color.shop', 
+    'https://auto-colorshop.netlify.app'
+    ]
 
 CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
+
+APPEND_SLASH = True
 
 SIMPLE_JWT = {
 

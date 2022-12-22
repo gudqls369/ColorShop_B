@@ -8,7 +8,6 @@ from posts.serializers import (BestPostSerializer, PostSerializer, PostListSeria
                                 CommentSerializer, CommentCreateSerializer, 
                                 ImageSerializer, ImageCreateSerializer, 
                                 ImageModelSerializer, ImageDetailSerializer)
-                               
 from AutoPainter.paint import paint
 
 class PostView(APIView):
@@ -17,7 +16,7 @@ class PostView(APIView):
         posts = Post.objects.all().order_by("-likes")
         posts=set(posts)
         posts=list(posts)
-        posts= posts[:6]
+        posts= posts[:8]
         serializer = BestPostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -135,6 +134,29 @@ class ImageView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+# class ImageView(APIView):
+#     def get(self, request):
+#         image = Image.objects.all()
+#         serializer = ImageSerializer(image, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+
+#     def post(self, request):
+#         serializer = ImageCreateSerializer(data=request.data)
+#         if serializer.is_valid():
+#             image = serializer.save(user=request.user)
+#             print(request.user)
+#             choose_model = image.model
+#             bf_img = image.before_image
+#             paint(bf_img, choose_model)
+            
+#             bf_img = 'before_image/' + str(bf_img)[str(bf_img).index('/')+1:]
+#             af_img = 'after_image/' + str(bf_img)[str(bf_img).index('/')+1:]
+            
+#             serializer.save(before_image=bf_img, after_image=af_img)
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CommunityView(APIView):
     def get(self, request):
