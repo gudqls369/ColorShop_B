@@ -18,7 +18,7 @@ class PostView(APIView):
         posts = Post.objects.all().order_by("-likes")
         posts=set(posts)
         posts=list(posts)
-        posts= posts[:6]
+        posts= posts[:8]
         serializer = BestPostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -150,6 +150,15 @@ class ImageDetailView(APIView):
         aimage = get_object_or_404(Image, id=image_id)
         serializer = ImageDetailSerializer(aimage)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, image_id):
+        image = get_object_or_404(Image, id=image_id)
+        if request.user == image.user:
+            image.delete()
+            return Response("삭제되었습니다.", status=status.HTTP_204_NO_CONTENT)
+        else: 
+            return Response("권한이 없습니다.", status=status.HTTP_403_FORBIDDEN)
+
 
 class PostSearchView(APIView):
     def get(self, request, **kwargs):
