@@ -13,7 +13,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class ImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ('before_image', 'model', 'after_image',)
+        fields = ('image_url','before_image', 'model', 'after_image',)
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()

@@ -15,12 +15,6 @@ ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpeg'])
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 model = {}
-
-def allowed_file(filename):
-    return (
-        '.' in filename and
-        filename.rsplit('.', 1)[1] in ALLOWED_IMAGE_EXTENSIONS
-    )
     
 def load_model(local_models_dir):
     for name in os.listdir(local_models_dir):
@@ -72,6 +66,7 @@ def paint(image, model_path):
     input_pic(before_image, after_image)
 
 def proceccing(image):
-        im = cv2.imread('./AutoPainter/media/'+str(image))
+        im = cv2.imread(image)
+        print(im)
         im = cv2.resize(im, [512,512])
         cv2.imwrite('./AutoPainter/media/'+str(image), im)

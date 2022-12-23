@@ -9,8 +9,7 @@ from posts.serializers import (BestPostSerializer, PostSerializer, PostListSeria
                                 CommentSerializer, CommentCreateSerializer, 
                                 ImageSerializer, ImageCreateSerializer, 
                                 ImageModelSerializer, ImageDetailSerializer)
-                               
-from AutoPainter.paint import paint
+from AutoPainter.app2 import trans1, trans2, sketchify2
 
 class PostView(APIView):
     def get(self, request):
@@ -117,21 +116,59 @@ class ImageView(APIView):
         serializer = ImageSerializer(image, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class ImageTrans1View(APIView):
     def post(self, request):
         serializer = ImageCreateSerializer(data=request.data)
         if serializer.is_valid():
             image = serializer.save(user=request.user)
-            choose_model = image.model
-            bf_img = image.before_image
-            paint(bf_img, choose_model)
+            url = image.image_url
+            result = trans1(url)
+            filename = str(result)[str(result).index('\\')+1:]
             
-            bf_img = 'before_image/' + str(bf_img)[str(bf_img).index('/')+1:]
-            af_img = 'after_image/' + str(bf_img)[str(bf_img).index('/')+1:]
+            bf_img = 'before_image/' + filename
+            af_img = 'after_image/' + filename
             
             serializer.save(before_image=bf_img, after_image=af_img)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class ImageTrans2View(APIView):
+    def post(self, request):
+        serializer = ImageCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            image = serializer.save(user=request.user)
+            url = image.image_url
+            result = trans2(url)
+            filename = str(result)[str(result).index('\\')+1:]
+            
+            bf_img = 'before_image/' + filename
+            af_img = 'after_image/' + filename
+            
+            serializer.save(before_image=bf_img, after_image=af_img)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        
+class ImageSketchifyView(APIView):
+    def post(self, request):
+        serializer = ImageCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            image = serializer.save(user=request.user)
+            url = image.image_url
+            result = sketchify2(url)
+            filename = str(result)[str(result).index('\\')+1:]
+            
+            bf_img = 'before_image/' + filename
+            af_img = 'after_image/' + filename
+            
+            serializer.save(before_image=bf_img, after_image=af_img)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
 class CommunityView(APIView):
     def get(self, request):
