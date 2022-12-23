@@ -1,6 +1,7 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import status
+from django.db.models import Q
 from rest_framework.response import Response
 from posts.models import Post, Comment, Image, ImageModel
 from posts.serializers import (BestPostSerializer, PostSerializer, PostListSerializer, 
@@ -17,7 +18,7 @@ class PostView(APIView):
         posts = Post.objects.all().order_by("-likes")
         posts=set(posts)
         posts=list(posts)
-        posts= posts[:6]
+        posts= posts[:8]
         serializer = BestPostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -104,14 +105,10 @@ class LikeView(APIView):
     def post(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         if request.user in post.likes.all():
-            post.like_count -= 1
             post.likes.remove(request.user) 
-            post.save()
-            return Response("좋아요를 취소했습니다.", status=status.HTTP_204_NO_CONTENT)
+            return Response("좋아요를 취소했습니다.", status=status.HTTP_200_OK)
         else:
-            post.like_count += 1
             post.likes.add(request.user)
-            post.save()
             return Response("좋아요를 했습니다.", status=status.HTTP_200_OK)
 
 class ImageView(APIView):
@@ -153,3 +150,34 @@ class ImageDetailView(APIView):
         aimage = get_object_or_404(Image, id=image_id)
         serializer = ImageDetailSerializer(aimage)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, image_id):
+        image = get_object_or_404(Image, id=image_id)
+        if request.user == image.user:
+            image.delete()
+            return Response("삭제되었습니다.", status=status.HTTP_204_NO_CONTENT)
+        else: 
+            return Response("권한이 없습니다.", status=status.HTTP_403_FORBIDDEN)
+
+
+class PostSearchView(APIView):
+    def get(self, request, **kwargs):
+        searchSelect = request.GET.get('searchSelect')
+        searchText = request.GET.get('searchText')
+
+        if searchText == None:
+            query_set = Post.objects.all()
+        else:
+            if searchSelect == '전체':
+                query_set = Post.objects.filter(Q(title__icontains=searchText) |
+                                                Q(content__icontains=searchText) |
+                                                Q(user__username__icontains=searchText)).distinct() 
+            elif searchSelect == '제목':
+                query_set = Post.objects.filter(Q(title__icontains=searchText)).distinct() 
+            elif searchSelect == '내용':
+                query_set = Post.objects.filter(Q(content__icontains=searchText)).distinct() 
+            elif searchSelect == '작성자':
+                query_set = Post.objects.filter(Q(user__username__icontains=searchText)).distinct()
+
+        serializer = PostListSerializer(query_set, many=True)
+        return Response(serializer.data)

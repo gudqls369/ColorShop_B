@@ -25,17 +25,12 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, validated_data) :
-        username = validated_data.get("username")
-        username_reg =r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,20}$"
-        password_reg = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+        password_reg = r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
         password = validated_data.get("password")
         password_check = validated_data.get("password_check")
 
-        if not re.search(username_reg, str(username)) :
-            raise serializers.ValidationError(detail={"username":" '유저이름'은 최소 한 개의 영문자와 숫자를 포함해 20글자 이하로 만들어주세요."})
-    
         if not re.search(password_reg, str(password)) :
-            raise serializers.ValidationError(detail={"password":"'비밀번호'는 최소 한 개의 영문자와 숫자를 포함해 8글자 이상으로 만들어 주세요."})
+            raise serializers.ValidationError(detail={"password":"비밀번호는 최소 한 개 이상의 영문자, 숫자, 특수문자를 포함해 8글자 이상으로 만들어 주세요."})
         elif password != password_check :
             raise serializers.ValidationError(detail={"password":"동일한 비밀번호를 입력해 주세요."})
 
@@ -86,19 +81,23 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         oldpassword = self.context.get("request").user.password
+        password_reg = r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
         password = data.get("password")
         repassword = data.get("repassword")
 
         if check_password(password, oldpassword):
             raise serializers.ValidationError(detail={"password":"현재 사용중인 비밀번호와 동일한 비밀번호는 입력할 수 없습니다."})
         
-        if password != repassword:
-            raise serializers.ValidationError(detail={"password":"비밀번호가 일치하지 않습니다."})
+        if not re.search(password_reg, str(password)) :
+            raise serializers.ValidationError(detail={"password":"비밀번호는 최소 한 개 이상의 영문자, 숫자, 특수문자를 포함해 8글자 이상으로 만들어 주세요."})
+        elif password != repassword :
+            raise serializers.ValidationError(detail={"password":"동일한 비밀번호를 입력해 주세요."})
         
         return data
 
+
     def update(self, instance, validated_data):
-        instance.passowrd = validated_data.get('password', instance.password)
+        instance.password = validated_data.get('password', instance.password)
         instance.set_password(instance.password)
         instance.save()
         return instance
