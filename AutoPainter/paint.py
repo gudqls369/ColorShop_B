@@ -15,12 +15,6 @@ ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpeg'])
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 model = {}
-
-def allowed_file(filename):
-    return (
-        '.' in filename and
-        filename.rsplit('.', 1)[1] in ALLOWED_IMAGE_EXTENSIONS
-    )
     
 def load_model(local_models_dir):
     for name in os.listdir(local_models_dir):
