@@ -14,7 +14,9 @@ SECRET_KEY = 'django-insecure-g1aioy8&!(t=ysehfnh12%68tl&1lo5t!i9ecob)ny76s_ii6j
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = os.environ.get('DEBUG', '0') == '1'
 
+# ALLOWED_HOSTS = ['backend', ]
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -135,14 +137,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = [
-    'https://www.ai-color.shop', 
-    'https://auto-colorshop.netlify.app'
-    ]
+# CORS_ORIGIN_WHITELIST = ['https://www.ai-color.shop']
 
-CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
-
-APPEND_SLASH = True
+# CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
 
 SIMPLE_JWT = {
 
@@ -184,3 +181,26 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+
+POSTGRES_DB = os.environ.get('POSTGRES_DB', '')
+if POSTGRES_DB:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': POSTGRES_DB,
+            'USER': os.environ.get('POSTGRES_USER', ''),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+            'HOST': os.environ.get('POSTGRES_HOST', ''),
+            'PORT': os.environ.get('POSTGRES_PORT', ''),
+        }
+    }
+
+# 환경변수가 존재하지 않을 경우 sqlite3을 사용합니다.
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }

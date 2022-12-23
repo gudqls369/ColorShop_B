@@ -86,7 +86,7 @@ class PostLikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "user", "likes_count", 'likes','like_count')
+        fields = ("id", "user", 'likes', 'likes_count')
 
 class BestPostSerializer(serializers.ModelSerializer):
     user_id = serializers.SerializerMethodField()
