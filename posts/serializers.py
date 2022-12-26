@@ -68,6 +68,9 @@ class PostListSerializer(serializers.ModelSerializer):
 
     def get_likes_count(self, obj):
         return obj.likes.count()
+    
+    def get_created_at(self, obj):
+        return obj.created_at
 
     class Meta:
         model = Post
