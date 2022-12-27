@@ -32,19 +32,6 @@ class MockView(APIView):
         return Response("get")
 
 class ChangePasswordView(APIView):
-    def get(self, request, user_id):
-        user = get_object_or_404(User, id=user_id)
-        serializer = ChangePasswordSerializer(user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request, user_id):
-        user = get_object_or_404(User, id=user_id)
-
-        if check_password(request.data, user.password):
-            return Response({"message":"인증이 완료되었습니다."}, status=status.HTTP_200_OK)        
-        else:
-            return Response({"message":"맞는 비밀번호를 적어주세요."}, status=status.HTTP_400_BAD_REQUEST)
-
     def put(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
 
