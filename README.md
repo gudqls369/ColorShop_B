@@ -22,17 +22,26 @@
 ![image](https://user-images.githubusercontent.com/110761719/207757785-8c16f856-3a17-4f7d-9dd2-c892ad6f4e4f.png)
 ![image](https://user-images.githubusercontent.com/110761719/207757873-36983f30-97b0-44b7-ab47-0b90a15bbd45.png)
 
-# 핵심 기능
+# V1 핵심 기능
+- 딥러닝을 활용한 밑그림 채색기능
+
 - 인기 포스트 나열(BEST 8)
 - 트위터 타임라인
+- 게시글/댓글 CRUD
+- 게시글 리스트를 좋아요순/최신순으로 정렬
+
 - 로그인, 회원가입
-- 딥러닝으로 이미지 변환
-- 결과 이미지 파일 데이터베이스에 저장 후 게시글 작성
-- 게시글 수정, 삭제, 좋아요
-- 댓글 작성, 수정, 삭제
-- 이미지 게시글 리스트를 좋아요순/최신순으로 정렬
-- 회원정보 보기, 수정, 탈퇴
+- 회원 정보 CRUD
 - 내가 쓴 게시글, 좋아요한 게시글 보기
+
+# v2 추가 기능
+- 딥러닝을 활용한 자동채색 기능 + 원하는 색으로 채색 업그레이드
+- 검색기능
+- 페이지네이션 기능
+
+- 로그인, 회원가입, 비밀번호 변경 시 특수문자 포함
+- 토큰 기간 만료시 refresh token을 이용한 자동 로그인 기능
+- 내가 변환한 이미지 보기
 
 # 시연 영상
 [![시연 영상](https://img.youtube.com/vi/UMNOLli3Uns/0.jpg)](https://www.youtube.com/watch?v=UMNOLli3Uns)
@@ -46,3 +55,4 @@
 
 # 기타 참고사항
 **[트러블 슈팅](https://github.com/0sol0/ColorShop_B/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)**
+**[개선 사항](https://github.com/0sol0/ColorShop_B/wiki/%EA%B0%9C%EC%84%A0-%EC%82%AC%ED%95%AD)**
