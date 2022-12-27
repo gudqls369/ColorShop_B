@@ -1,13 +1,14 @@
 ![image](https://user-images.githubusercontent.com/110761719/207755588-07f40bc3-1bac-4586-b621-1a188d5a0d16.png)
 
+[![image](https://img.shields.io/badge/Front-ColorShop_F-blue)](https://github.com/0sol0/ColorShop_F)
 ![image](https://img.shields.io/badge/Language-HTML-red)
 ![image](https://img.shields.io/badge/Language-CSS-orange)
 ![image](https://img.shields.io/badge/Language-JavaScript-yellow)
+
+[![image](https://img.shields.io/badge/Back-ColorShop_B-9cf)](https://github.com/0sol0/ColorShop_B)
 ![image](https://img.shields.io/badge/Language-Python-brightgreen)
 ![image](https://img.shields.io/badge/Framework-Django-green)
 
-[![image](https://img.shields.io/badge/Front-ColorShop_F-9cf)](https://github.com/0sol0/ColorShop_F)
-[![image](https://img.shields.io/badge/Back-ColorShop_B-blue)](https://github.com/0sol0/ColorShop_B)
 
 - 원하는 밑그림에 AI를 활용하여 색을 입히는 사이트
 - 사진 편집 프로그램인 포토샵에서 영감을 따 온 이름으로 원하는 이미지에 ‘색을 입힌다’는 사이트의 목적에 따라 컬러샵이라는 이름을 짓게 되었다.
